@@ -1,0 +1,8 @@
+* BRD (Business Requirements Document)
+müşterinin ihtiyaçları doğrultusunda isterlerini döktüğümüz döküman.
+* SDLC (Software Development Life Cycle)
+    1.Requirements Analysis
+    2.Design (Figma vs..) + ERD (Diagrams)
+    3.Development
+    4.Testing
+    5.Maintenance
