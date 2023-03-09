@@ -6,3 +6,33 @@ müşterinin ihtiyaçları doğrultusunda isterlerini döktüğümüz döküman.
     3.Development
     4.Testing
     5.Maintenance
+
+? bu projede biz resimlerin url lerini text field ile tutacağız direkt image ın kendisini değil.fakat diğer yöntem olan  image'leri front end den upload etmek istediğimizde,backend,verileri json olarak aldığı için,o dosyanın image olduğunu belirtmemiz gerekir.bunun için bir takım ayarlar var..makalelere göz at.
+
+
+* http://127.0.0.1:8000/stock/categories/ bu endpointin sonuna search filter eklemek için..
+! https://www.django-rest-framework.org/api-guide/filtering/#searchfilter
+? CategoryView'e ekleme yapıyoruz.name field'ı ile kategori arama özelliği ekledik
+* http://127.0.0.1:8000/stock/categories/?search= şeklinde arama yapabiliriz.
+
+* Django filter-backend 
+! https://www.django-rest-framework.org/api-guide/filtering/#djangofilterbackend
+You should now either add the filter backend to your settings:
+-genel olarak ekleyebilirim (bütün viewlarda aktif olur)
+Or add the filter backend to an individual View or ViewSet.
+-sadece view bazında ekleyebilirim.
+
+? Bir kategori ismine göre filtreleme yapıldığında dönen sonuçta o kategoriye ait ürünler de gelsin
+* (örnek endpoint) http://127.0.0.1:8000/stock/categories/?search=&name=Elektronik
+? kategori filtreleme yapılmadığında sadece kategori isimleri gelsin ürünler gelmesin
+* (örnek endpoint) http://127.0.0.1:8000/stock/categories/?search=&name=
+? bu işlemleri serializers'da yapabiliriz.
+    -name keyword'ünün olup olmama durumuna göre serializer seçeceğiz.serializer seçen get_serializer metodunu override ederek bu logic'i kurabiliriz.
+
+! Django Model Permissions
+https://www.django-rest-framework.org/api-guide/permissions/#djangomodelpermissions
+
+* view'de permissionlar eklendiği zaman artık postman vs de test yaparken token ile istek göndermek gerekiyor.
+
+? account app > signals.py : kullanıcı login olduğunda otomatik olarak belli izinler atama
+? account app > admin.py : admin panelde görüntü ayarları list_display vs..

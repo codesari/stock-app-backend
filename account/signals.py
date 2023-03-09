@@ -11,10 +11,12 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)  
         user= User.objects.get(username = instance)
-        # if not user.is_superuser:
-        #     group = Group.objects.get(name='Read_Only') 
-        #     user.groups.add(group)
-        #     user.save()
+        # eğer kullanıcı superuser değilse Read_Only grubu izinlerine sahip olsun
+        # (yeni kayıt olan kullanıcıya otomatik izin belirleme)
+        if not user.is_superuser:
+            group = Group.objects.get(name='Read_Only') 
+            user.groups.add(group)
+            user.save()
 
 
         
