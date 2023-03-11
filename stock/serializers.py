@@ -17,11 +17,27 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
 
+    
+    category = serializers.StringRelatedField()
+    brand = serializers.StringRelatedField()
+    # StringRelatedField'lar read only dir.post yaparken bu iki field kullanılamaz.onun yerine category_id ya da brand_id ile post yapılır
+    brand_id = serializers.IntegerField()
+    category_id = serializers.IntegerField()
+    
     class Meta:
         model=Product
-        # fields="__all__"
-        # fields=("name",)
-        fields=["name"]
+        fields=(
+            'id',
+            'category',
+            'category_id',
+            'brand',
+            'brand_id',
+            'name',
+            'stock'
+        )
+        # stock field'ı purchase ve sales ile değişecek,buradan product ile değişmeyecek o yüzden read only yapıyoruz
+        read_only_fields=('stock',)
+        # ? eğer stock 0 dan büyükse sayı yerine 'mevcut' yazdıma nasıl yapılır 
 
 class CategoryProductSerializer(serializers.ModelSerializer):
 
@@ -56,7 +72,38 @@ class FirmSerializer(serializers.ModelSerializer):
             'address'
         )
         
+class PurchasesSerializer(serializers.ModelSerializer):
     
+    user = serializers.StringRelatedField() 
+    firm = serializers.StringRelatedField()
+    brand = serializers.StringRelatedField()
+    product = serializers.StringRelatedField()
+    product_id = serializers.IntegerField()
+    brand_id = serializers.IntegerField()
+    firm_id = serializers.IntegerField()
+    # category = serializers.SerializerMethodField()
+    # time_hour = serializers.SerializerMethodField()
+    # createds = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Purchases
+        fields = (
+            "id",
+            "user",
+            "user_id",
+            # "category",
+            "firm",
+            "firm_id",
+            "brand",
+            "brand_id",
+            "product",
+            "product_id",
+            "quantity",
+            "price",
+            "price_total",
+            # "time_hour",
+            # "createds",
+        )
 
 
 
