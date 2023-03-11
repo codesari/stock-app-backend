@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Brand,Category,Firm,Product,Purchases,Sales
+import datetime
 
 # category modelini listelediğimizde id ve name listelenir.başka field ekleyerek zenginleştirmek istiyorsak SerializerMethodField kullanırız.bunun ile kategori altındaki ürünleri ekleyebilirim ya da ürünlerin sayısını ekleyebilirim vs..
 
@@ -81,9 +82,9 @@ class PurchasesSerializer(serializers.ModelSerializer):
     product_id = serializers.IntegerField()
     brand_id = serializers.IntegerField()
     firm_id = serializers.IntegerField()
-    # category = serializers.SerializerMethodField()
-    # time_hour = serializers.SerializerMethodField()
-    # createds = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+    time = serializers.SerializerMethodField()
+    date = serializers.SerializerMethodField()
     
     class Meta:
         model = Purchases
@@ -91,7 +92,7 @@ class PurchasesSerializer(serializers.ModelSerializer):
             "id",
             "user",
             "user_id",
-            # "category",
+            "category",
             "firm",
             "firm_id",
             "brand",
@@ -101,12 +102,22 @@ class PurchasesSerializer(serializers.ModelSerializer):
             "quantity",
             "price",
             "price_total",
-            # "time_hour",
-            # "createds",
+            "time",
+            "date"
         )
+    # def get_category(self,obj):
+    #     product=Product.objects.get(id=obj.product_id)
+    #     category=Category.objects.get(id=product.category_id).name
+    #     return category
+    def get_category(self,obj):
+        return obj.product.category.name
+    def get_time(self,obj):
+        return datetime.datetime.strftime(obj.created,"%H:%M:%S")
+    def get_date(self,obj):
+        return datetime.datetime.strftime(obj.created,"%d.%m.%y")
+        
 
 
 
-
-
+ 
         

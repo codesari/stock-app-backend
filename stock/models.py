@@ -65,6 +65,8 @@ class Purchases(UpdateandCreate):
     firm=models.ForeignKey(Firm,on_delete=models.SET_NULL,null=True,related_name="firm_purchases")
     brand=models.ForeignKey(Brand,on_delete=models.SET_NULL,null=True,related_name="brand_purchases")
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_purchases")
+    # related fieldlar db'ye _id eklemesiyle kaydedilir
+    # örnek product-> product_id şeklinde kayıt edilir.
     quantity=models.PositiveSmallIntegerField()
     price=models.DecimalField(max_digits=6,decimal_places=2)
     # decimal : virgüllü sayılar olabilir
