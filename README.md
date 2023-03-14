@@ -32,7 +32,7 @@
 
 **Backend:** Python, Django
 
-**Databases:** PostgreSQL, SQLite
+**Databases:** SQLite
 
 **Deploy:** pythonanywhere
 
